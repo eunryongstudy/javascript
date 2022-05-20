@@ -20,7 +20,7 @@
         </div>
       </div> 
 
-
+      
 
 
     <nav class="navbar navbar-light bg-light">
@@ -40,11 +40,11 @@
         <li class="list-group-item">And a fifth one</li>
       </ul>
 
-      <button id="login">버튼</button>
+      <button id="login">로그인</button>
 
       <script>
           $('#login').on('click', function(){
-            $('.black-bg').css('display','block');
+            $('.black-bg').addClass('show-modal');
           })
 
           document.querySelector('.navbar').addEventListener('click', function(){

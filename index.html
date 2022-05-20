@@ -12,6 +12,17 @@
     crossorigin="anonymous"></script>
   </head>
   <body>
+
+    <div class="black-bg">
+        <div class="white-bg">
+          <h4>로그인하세요</h4>
+          <button class="btn btn-danger" id="close">닫기</button>
+        </div>
+      </div> 
+
+
+
+
     <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
           <span class="navbar-brand">Navbar</span>
@@ -29,17 +40,11 @@
         <li class="list-group-item">And a fifth one</li>
       </ul>
 
-      <p class="hello">안녕</p>
-      <p class="hello">안녕</p>
-      <p class="hello">안녕</p>
-      <button id="test-btn">버튼</button>
+      <button id="login">버튼</button>
 
       <script>
-          //document.querySelector('.hello').innerHTML ='바보';
-          $('.hello').css('color','red');
-          //document.querySelector('#test-btn').addEventListener()
-          $('#test-btn').on('click',function(){
-            $('.hello').slideUp();
+          $('#login').on('click', function(){
+            $('.black-bg').css('display','block');
           })
 
           document.querySelector('.navbar').addEventListener('click', function(){

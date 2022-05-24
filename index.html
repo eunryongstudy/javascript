@@ -31,19 +31,8 @@
 
       
       <script>
-          $('form').on('submit',function(e){
-              if(document.getElementById('email').value == ''){
-                alert('아이디를 입력하세요');
-                e.preventDefault();
-              }
-              if(document.getElementById('pw').value == ''){
-                alert('비밀번호를 입력하세요');
-                e.preventDefault();
-              }
-              if(document.getElementById('pw').value.length < 6){
-                alert('비밀번호가 6글자 미만입니다.');
-                e.preventDefault();
-              }
+          document.getElementById('email').addEventListener('change',function(){
+
           })
 
 

@@ -13,6 +13,10 @@
   </head>
   <body>
 
+
+    
+
+
     <div class="black-bg">
         <div class="white-bg">
           <h4>로그인하세요</h4>
@@ -32,37 +36,13 @@
 
 
 
-    <div style="overflow: hidden;">
-      <div class="slide-container">
-        <div class="slide-box">
-          <img src="car1.png">
-        </div>
-        <div class="slide-box">
-          <img src="car2.png">
-        </div>
-        <div class="slide-box">
-          <img src="car3.png">
-        </div>
-      </div>
-    </div>
-
-    <button class="slide-1">1</button>
-    <button class="slide-2">2</button>
-    <button class="slide-3">3</button>
+    
 
 
       <script>
 
 
-        $('.slide-2').on('click',function(){
-          $('.slide-container').css('transform', 'translateX(-100vw)');
-        })
-        $('.slide-1').on('click',function(){
-          $('.slide-container').css('transform', 'translateX(0vw)');
-        })
-        $('.slide-3').on('click',function(){
-          $('.slide-container').css('transform', 'translateX(-200vw)');
-        })
+       
 
 
 
@@ -95,6 +75,11 @@
           </button>
         </div>
       </nav> 
+
+
+
+      
+
 
 
       <script>
@@ -133,7 +118,58 @@
       <span id="times">5</span>초있다 사라짐
      </div>
 
+     <div style="overflow: hidden;">
+      <div class="slide-container">
+        <div class="slide-box">
+          <img src="car1.png">
+        </div>
+        <div class="slide-box">
+          <img src="car2.png">
+        </div>
+        <div class="slide-box">
+          <img src="car3.png">
+        </div>
+      </div>
+    </div>
+
+    <button class="slide-1">1</button>
+    <button class="slide-2">2</button>
+    <button class="slide-3">3</button>
+    <button class="next">다음</button>
+    <button class="before">이전</button>
+
       <script>
+
+
+        var now = 1;
+
+        $('.slide-2').on('click',function(){
+          now = 2;
+          $('.slide-container').css('transform', 'translateX(-100vw)');
+        })
+        $('.slide-1').on('click',function(){
+          now = 1;
+          $('.slide-container').css('transform', 'translateX(0vw)');
+        })
+        $('.slide-3').on('click',function(){
+          now = 3;
+          $('.slide-container').css('transform', 'translateX(-200vw)');
+        })
+        $('.next').on('click', function(){
+          $('.slide-container').css('transform', 'translateX(-'+ now +'00vw)');
+          now += 1;
+          }
+        )
+        $('.before').on('click', function(){
+          $('.slide-container').css('transform', 'translateX(-'+ now +'00vw)');
+          now -= 1;
+        })
+
+
+
+
+
+
         var count = 5;
         setInterval(function(){
           count -= 1;

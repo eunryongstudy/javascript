@@ -84,9 +84,22 @@
           <button id="login" class="btn btn-danger">로그인</button>
       </div>
 
-     
+     <div class="alert alert-danger">
+      <span id="times">5</span>초있다 사라짐
+     </div>
 
       <script>
+        var count = 5;
+        setInterval(function(){
+          count -= 1;
+          if(count >= 0){
+            document.querySelector('#times').innerHTML= count;
+          }else if(count<0)
+          {
+            $('.alert').hide();
+          }
+        },1000);
+
           $('#login').on('click', function(){
             $('.black-bg').addClass('show-modal');
           })

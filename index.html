@@ -29,8 +29,43 @@
         </div>
       </div> 
 
-      
+
+
+
+    <div style="overflow: hidden;">
+      <div class="slide-container">
+        <div class="slide-box">
+          <img src="car1.png">
+        </div>
+        <div class="slide-box">
+          <img src="car2.png">
+        </div>
+        <div class="slide-box">
+          <img src="car3.png">
+        </div>
+      </div>
+    </div>
+
+    <button class="slide-1">1</button>
+    <button class="slide-2">2</button>
+    <button class="slide-3">3</button>
+
+
       <script>
+
+
+        $('.slide-2').on('click',function(){
+          $('.slide-container').css('transform', 'translateX(-100vw)');
+        })
+        $('.slide-1').on('click',function(){
+          $('.slide-container').css('transform', 'translateX(0vw)');
+        })
+        $('.slide-3').on('click',function(){
+          $('.slide-container').css('transform', 'translateX(-200vw)');
+        })
+
+
+
           $('form').on('submit', function(){
             var inputEmail = document.querySelector('#email').value;
             var inputPwd = document.querySelector('#pw').value;

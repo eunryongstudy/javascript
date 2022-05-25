@@ -31,8 +31,18 @@
 
       
       <script>
-          document.getElementById('email').addEventListener('change',function(){
-
+          $('form').on('submit', function(){
+            var inputEmail = document.querySelector('#email').value;
+            var inputPwd = document.querySelector('#pw').value;
+            if(inputEmail == ''){
+              alert('아이디를 입력하세요.');
+            }
+            else if(!/\S+@\S+\.\S+/.test(inputEmail)){
+              alert('이메일 형식이 아님');
+            }
+            else if(/[A-Z]/.test(inputPwd == false)){
+              alert('비밀번호에 대문자가 없습니다.');
+            }
           })
 
 

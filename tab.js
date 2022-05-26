@@ -17,3 +17,8 @@ function 탭열기(num){
 $('.list').click(function(e){
         탭열기(e.target.dataset.id);
 })
+
+var car = ['소나타', 50000, 'white'];
+var car2 = {name:'소나타', price:50000, color:'white'}
+$('.car-title').html(car2.name)
+$('.car-price').html(car2.price)

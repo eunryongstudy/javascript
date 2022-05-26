@@ -32,8 +32,17 @@ var products = [
 // $('.card-body h5')[0].html = products[0]['title'];
 
 
-for(let i = 0; i < products.length; i++)
-{
-    document.querySelectorAll('.card-body h5')[i].innerHTML = products[i].title;
-    document.querySelectorAll('.card-body p')[i].innerHTML = '가격 : '+ products[i].price;
+// for(let i = 0; i < products.length; i++)
+// {
+//     document.querySelectorAll('.card-body h5')[i].innerHTML = products[i].title;
+//     document.querySelectorAll('.card-body p')[i].innerHTML = '가격 : '+ products[i].price;
+// }
+$('.form-select').eq(0).on('input',function(){
+
+    var value = $('.form-select').eq(0).val();
+    if(value == '셔츠'){
+    $('.form-select').eq(1).removeClass('hide');
+}   else{
+    $('.form-select').eq(1).addClass('hide');
 }
+})

@@ -18,16 +18,6 @@ $('.list').click(function(e){
         탭열기(e.target.dataset.id);
 })
 
-var car = ['소나타', 50000, 'white'];
-var car2 = {name : '소나타', price : [50000, 3000, 200], color : 'white'}
-$('.car-title').html(car2.name)
-$('.car-price').html(car2.price[0])
-
-var products = [
-    { id : 0, price : 70000, title : 'Blossom Dress' },
-    { id : 1, price : 50000, title : 'Springfield Shirt' },
-    { id : 2, price : 60000, title : 'Black Monastery' }
-  ];
 
 // $('.card-body h5')[0].html = products[0]['title'];
 
@@ -65,5 +55,6 @@ else{
 // a.innerHTML = '안녕';
 // document.querySelector('#test').appendChild(a);
 
-var 템플릿 = '<p>안녕</p>'
-document.querySelector('#test').insertAdjacentHTML('beforeend', 템플릿);
+// var 템플릿 = '<p>안녕</p>'
+// document.querySelector('#test').insertAdjacentHTML('beforeend', 템플릿);
+

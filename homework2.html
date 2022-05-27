@@ -14,6 +14,50 @@
         var 초 = (min*60 + sec)*1000
         return ''+초+'ms'
       }
+
+      var 출석부 = ['흥민', '영희', '철수', '재석'];
+
+      function 이름찾기(name){
+        출석부.forEach(function(a , i){
+          if(name == 출석부[i - 1]){
+            console.log('있어요');
+          }
+        }
+        )
+      }
+
+      // for(i = 2; i <= 9; i++){
+      //   for(j = 1; j <= 9; j++){
+      //     console.log(i*j)
+      //   }
+      // }
+      
+      var result = 0;
+
+      function 평균(score, averge){
+        for(let i = 0; i < score.length; i++){
+           result = result + score[i];
+        }
+        if(result/score.length<averge){
+          console.log(`평균 ${averge-(result/score.length)}떨어졌어요`)
+        }
+        else if(result/score.length>averge)
+        {
+          console.log(`평균 ${(result/score.length)-averge}올랐어요`)
+        }
+        else{
+          console.log('점수가 같아요');
+        }
+      
+      }
+        
+        
+      
+
+
+
+
+
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
   </body>

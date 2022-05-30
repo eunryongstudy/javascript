@@ -20,13 +20,23 @@
     </div> 
     
     
+    
+    <div class="container">
+      <button class="btn btn-danger more">더보기</button>
+    </div>
+
+    <div class="container my-3">
+      <button class="btn btn-danger sorting">정렬</button>
+    </div>
     <script>
-      
-      var products = [
+
+    var products = [
       { id : 0, price : 70000, title : 'Blossom Dress' },
       { id : 1, price : 50000, title : 'Springfield Shirt' },
       { id : 2, price : 60000, title : 'Black Monastery' }
       ];
+
+      
 
       상품(products);
 
@@ -41,12 +51,8 @@
       })
       }
 
-    </script>
-    
-    <div class="container">
-      <button class="btn btn-danger more">더보기</button>
-    </div>
-    <script>
+
+
       var count = 0;
       
       $('.more').on('click',function(){
@@ -66,7 +72,13 @@
       }
     })
         
-
+    $('.sorting').on('click',function(){
+        products.sort(function(a, b){
+          return a.price - b.price
+        })
+        $('.row').html('');
+        상품(products);
+      })
       
     </script>
     

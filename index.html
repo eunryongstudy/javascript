@@ -150,7 +150,7 @@
      <div style="overflow: hidden;">
       <div class="slide-container">
         <div class="slide-box">
-          <img src="car1.png">
+          <img src="car1.png" draggable="false">
         </div>
         <div class="slide-box">
           <img src="car2.png">
@@ -168,9 +168,74 @@
     <button class="before">이전</button>
 
       <script>
-
-
+        var 시작좌표 = 0;
+        var 눌렀냐 = false;
         var now = 1;
+        var drag = 0;
+        $('.slide-box').eq(0).on('mousedown', function(e){
+          시작좌표 = e.clientX;
+          눌렀냐 = true;
+        })
+
+        $('.slide-box').eq(0).on('mousemove', function(e){
+          if (눌렀냐 == true)
+           drag = e.clientX - 시작좌표;
+           $('.slide-container').css('transform', `translateX(${drag}px)`);
+        })
+
+        $('.slide-box').eq(0).on('mouseup', function(e){
+          눌렀냐 = false;
+          console.log(e.clientX - 시작좌표);
+          if(e.clientX - 시작좌표 < -100){
+            now = 2;
+            $('.slide-container')
+            .css('transition', 'all 0.5s')
+            .css('transform', 'translateX(-100vw)');
+          }else{
+            $('.slide-container')
+            .css('transition', 'all 0.5s')
+            .css('transform', 'translateX(0vw)');
+          }
+          setTimeout(()=>{
+            $('.slide-container').css('transition', 'none');
+          }, 500)
+         
+
+        })
+
+        $('.slide-box').eq(0).on('touchstart', function(e){
+          시작좌표 = e.touches[0].clientX;
+          눌렀냐 = true;
+        })
+
+        $('.slide-box').eq(0).on('touchmove', function(e){
+          if (눌렀냐 == true)
+           drag = e.touches[0].clientX - 시작좌표;
+           $('.slide-container').css('transform', `translateX(${drag}px)`);
+        })
+
+        $('.slide-box').eq(0).on('touchend', function(e){
+          눌렀냐 = false;
+          console.log(drag);
+          if(e.changedTouches[0].clientX - 시작좌표 < -200){
+            now = 2;
+            $('.slide-container')
+            .css('transition', 'all 0.5s')
+            .css('transform', 'translateX(-100vw)');
+          }else{
+            $('.slide-container')
+            .css('transition', 'all 0.5s')
+            .css('transform', 'translateX(0vw)');
+          }
+          setTimeout(()=>{
+            $('.slide-container').css('transition', 'none');
+          }, 500)
+         
+
+        })
+
+
+        
 
         $('.slide-2').on('click',function(){
           now = 2;

@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="main.css">
+    <script
+    src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+    crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>집꾸미기</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="navdiv">
+          <a class="navbar-brand" href="#" style="font-size: 30px; margin:20px">Navbar</a>
+          <a href="">Home</a>
+          <a href="">스토어</a>
+          <a href="">시공견적</a>
+        </div>
+      </nav>
+
+
+      <div class="container">
+        <input id="search" placeholder="검색어입력">
+      </div>
+      
+      
+      <div class="container">
+        <div class="row product-list">
+          <!-- <div class="col-md-3">
+            <img src="">
+            <h4>상품명 : </h4>
+            <p>가격 : </p>
+          </div> -->
+        </div>
+
+    </div>
+
+
+    <div class="container basket-wrap" style="background : #e2e2e2">
+        <h4>장바구니 (드래그 가능)</h4>
+        <div class="row basket">
+          
+        </div>
+    </div>
+
+    <div class="container my-3">
+        <h4>최종가격</h4>
+        <p class="final-price"></p>
+        <button class="buy">구매하기</button>
+      </div>
+
+
+      <div class="modal1" style="display: none;">
+        <div class="white-bg">
+          <h4>성함</h4>
+          <input type="text" id="name">
+          <h4>연락처</h4>
+          <input type="text" id="phone">
+          <button class="show-receipt">입력완료</button>
+          <div>
+            <button class="close">닫기</button>
+          </div>
+        </div>
+      </div>
+    
+      <div class="modal2" style="display: none;">
+        <div class="white-bg">
+          <h4>영수증</h4>
+          <canvas id="canvas" width="350" height="350"></canvas>
+          <div>
+            <button class="close">닫기</button>
+          </div>
+        </div>
+      </div>
+      <script>
+            
+        let products = [];
+        let cart = [];
+
+
+          $.getJSON("store.json").then(function(data){
+            products = data.products;
+
+              data.products.forEach((a, i) =>{
+                var 상품 = `<div class="col-md-3">
+                        <img src="${a.photo}">
+                        <h4>${a.title}</h4>
+                        <h4>${a.brand}</h4>
+                        <p]>가격 : ${a.price}</p>
+                        <button class="add" data-id="${a.id}">담기</button>
+                        </div>`;
+                        $('.product-list').append(상품);
+              });
+             
+
+
+        $('.add').on('click',function(e){
+            let productId = e.target.dataset.id;
+
+            let 몇번째 = cart.findIndex((a) => {return a.id = productId})
+
+            if(몇번째 == -1){
+                let 현재상품 = products.find((a) => {return a.id = productId})
+                현재상품.count = 1;
+                cart.push(현재상품);
+            }
+            else{
+                cart[몇번째].count++;
+            }console.log(cart);
+
+
+            $('.basket').html('');
+            cart.forEach((a, i)=>{
+                $('.basket').append(`
+            <div class="col-md-3 bg-white">
+              <img src="${a.photo}">
+              <h4>${a.title}</h4>
+              <h4>${a.brand}</h4>
+              <p>${a.price}</p>
+              <input type = "number" value = "${a.count}" class="item-count w-100">
+              </div>
+              `);
+            })
+
+            $('.itme-count').on('input',function(){
+                가격계산();
+            })
+
+            
+        });
+        
+        $('.item').on('dragstart', function(e){
+            e.originalEvent.dataTransfer.setData('id', e.target.dataset.id);
+        });
+
+        $('.basket').on('dragover', function(e){
+            e.preventDefault();
+        })
+
+        $('.basket').on('drop', function(e){
+            let productId = e.originalEvent.dataTransfer.getData('id');
+            console.log(productId);
+
+            $('.add').eq(productId).click();
+        });
+        
+    });
+    
+    $('.buy').click(function(){
+        $('.modal1').css('display','block');
+
+    })
+
+    let 성함 = '';
+    let 연락처 = '';
+    
+    $('#name').on('input',function(){
+        성함 = $('#name').val();
+    })
+
+    $('#phone').on('input',function(){
+        연락처 = $('#phone').val();
+    })
+    
+    
+    $('.show-receipt').click(function(){
+      $('.modal1').css('display', 'none');
+      $('.modal2').css('display', 'block');
+
+      var canvas = document.getElementById('canvas');
+      var c = canvas.getContext('2d');
+      c.font = '16px dotum';
+      c.fillText('구매자 : ' + 성함, 20, 30);
+      c.fillText('연락처 : ' + 연락처, 20, 60); 
+      c.fillText($('.final-price').html(), 20, 90); 
+
+      //상품명들 보여주려면 장바구니 상품만큼 c.fillText() 하면 되겠군요
+      
+    })
+
+
+
+
+    
+
+    //===========================
+    //검색기능 
+    //=========================== 
+    
+    $('#search').on('input', function(){
+      let 검색어 = $('#search').val();
+
+
+      //지금입력한 글자가 제목에 있으면 let products에서 검색어있는 것만 남기기
+      
+      let newProducts = products.filter((a)=>{
+        return a.title.includes(검색어) || a.brand.includes(검색어)
+      });
+
+      $('.product-list').html('');
+      newProducts.forEach((a, i) => {
+        $('.product-list').append(`
+          <div class="col-md-3">
+            <img src="">
+            <h4>${a.title}</h4>
+            <h4>${a.brand}</h4>
+            <p>가격 : ${a.price}</p>
+            <button class="add" data-id="${a.id}">담기</button>
+          </div>`)
+      });
+
+      //jQuery로 여러개 찾은건 each반복문 붙여야 잘됨 
+
+      $('.product-list h4').each(function(i, html요소){
+        let title = html요소.innerHTML;
+        title = title.replace(검색어, `<span style="background : yellow">${검색어}</span>`);
+        console.log(title);
+
+        html요소.innerHTML = title;
+      })
+
+
+      //상품목록 다시 생성했으니 $('.add') 이벤트리스너도 다시 달아놔야할듯 
+      //길어서 생략함 
+      //$('.add') 이벤트리스너 안에 있는 코드랑 비슷할 것 같은데 함수로 만들어 재사용하든 하셈
+
+      
+    });
+
+
+    //===========================
+    //모달창 2개 닫기 기능 
+    //===========================
+
+    $('.close').click(function(e){
+      //그냥 2개 동시에 닫음
+      $(e.target).parents('.modal1').css('display', 'none');
+      $(e.target).parents('.modal2').css('display', 'none');
+    });
+
+
+      </script>
+   
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+  </body>
+</html>
